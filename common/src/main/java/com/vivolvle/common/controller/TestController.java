@@ -35,6 +35,8 @@ public class TestController {
         if (result.isHasErrors()) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, result.getErrMsg());
         }
+        String name = "123";
+        System.out.println(Long.valueOf(name).longValue());
         return ServerResponce.createBySuccessMessage("测试成功");
     }
 
