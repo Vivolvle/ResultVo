@@ -33,6 +33,15 @@ public class FundationApplicationTests {
         System.out.println(map.get("name"));
     }
 
+    //map
+    @Test
+    public void testMapPut(){
+        Map<Object, Object> map = new ConcurrentHashMap<>();
+        map.put("name",0);
+        map.put("name",1);
+        System.out.println(map.get("name"));
+    }
+
     @Test
     public void testListContain(){
         List<Integer> target = new ArrayList<>();
