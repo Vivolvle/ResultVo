@@ -59,9 +59,9 @@ public class ProxyGroup {
     }
 
     public static void main(String[] args) {
-        String str = "A:2181:0.2,B:2181:0.1,C:2181:0.1,D:2181:0.1,E:2181:0.1";
+        String str = "A:2181:2,B:2181:1,C:2181:1,D:2181:1,E:2181:1";
         ProxyGroup pg = new ProxyGroup(str);
-        for(int i = 0; i < 20; i++) {
+        for(int i = 0; i < 6; i++) {
             System.out.println(pg.nextProxy());
         }
         //System.out.println(pg.nextProxy());
