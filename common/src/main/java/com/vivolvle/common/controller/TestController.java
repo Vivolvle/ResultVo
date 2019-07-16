@@ -4,13 +4,11 @@ import com.vivolvle.common.command.TestCommand;
 import com.vivolvle.common.error.BusinessException;
 import com.vivolvle.common.error.EmBusinessError;
 import com.vivolvle.common.response.ServerResponce;
+import com.vivolvle.common.service.TestService;
 import com.vivolvle.common.validator.ValidationResult;
 import com.vivolvle.common.validator.ValidatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,9 +21,12 @@ public class TestController {
 
     @Autowired
     private ValidatorImpl validator;
+    @Autowired
+    private TestService testService;
 
-    @GetMapping("/msg")
-    public ServerResponce getMsg() {
+    @GetMapping("/adapter/{value}")
+    public ServerResponce getMsg(@PathVariable("value") String value) {
+        testService.writeIntoRequest(value);
         return ServerResponce.createBySuccessMessage("测试成功");
     }
 
