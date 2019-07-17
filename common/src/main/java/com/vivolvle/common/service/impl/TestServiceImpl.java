@@ -7,6 +7,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author liangzheng.wei
@@ -15,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Service
 public class TestServiceImpl implements TestService {
+    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(3, 8,
+            30L, TimeUnit.SECONDS, new LinkedBlockingDeque<>(8000));
 
     @Override
     public void writeIntoRequest(String value) {
@@ -26,5 +31,16 @@ public class TestServiceImpl implements TestService {
     @Override
     public void testThread(String value) {
         ThreadLocalUtil.setValue(value);
+    }
+
+    @Override
+    public void testExecutor() {
+        executor.execute(()->printThreadLocalValue());
+    }
+
+    private void printThreadLocalValue(){
+        Object result = ThreadLocalUtil.getValue();
+        System.out.println("name of currentThread from executor is "
+                +Thread.currentThread().getName()+" the value is: "+ result);
     }
 }

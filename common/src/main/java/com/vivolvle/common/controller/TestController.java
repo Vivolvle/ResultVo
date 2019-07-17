@@ -40,6 +40,15 @@ public class TestController {
         return ServerResponce.createBySuccess(result);
     }
 
+    @GetMapping("/asynchronous/{value}")
+    public ServerResponce asynchronous(@PathVariable("value") String value){
+        System.out.println("name of currentThread from controller is "
+                +Thread.currentThread().getName());
+        ThreadLocalUtil.setValue(value);
+        testService.testExecutor();
+        return ServerResponce.createBySuccessMessage("测试成功");
+    }
+
     @PostMapping("/validate")
     public ServerResponce validate(@RequestBody TestCommand testCommand) {
         ValidationResult result = validator.validate(testCommand);
