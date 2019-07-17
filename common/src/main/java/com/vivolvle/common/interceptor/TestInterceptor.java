@@ -1,5 +1,6 @@
 package com.vivolvle.common.interceptor;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -12,9 +13,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 @Configuration
 public class TestInterceptor extends WebMvcConfigurationSupport {
 
+    @Bean
+    public AfterInspector afterInspector(){
+        return new AfterInspector();
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AfterInspector());
+        registry.addInterceptor(afterInspector());
     }
 
 }
