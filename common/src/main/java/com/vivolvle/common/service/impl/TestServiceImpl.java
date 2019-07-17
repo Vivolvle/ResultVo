@@ -1,6 +1,7 @@
 package com.vivolvle.common.service.impl;
 
 import com.vivolvle.common.service.TestService;
+import com.vivolvle.common.utils.ThreadLocalUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -14,10 +15,16 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Service
 public class TestServiceImpl implements TestService {
+
     @Override
     public void writeIntoRequest(String value) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
                 .getRequestAttributes()).getRequest();
         request.setAttribute("name", value);
+    }
+
+    @Override
+    public void testThread(String value) {
+        ThreadLocalUtil.setValue(value);
     }
 }

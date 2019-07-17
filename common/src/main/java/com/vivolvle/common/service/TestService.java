@@ -7,4 +7,5 @@ package com.vivolvle.common.service;
  */
 public interface TestService {
     void writeIntoRequest(String value);
+    void testThread(String value);
 }

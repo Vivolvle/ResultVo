@@ -5,6 +5,7 @@ import com.vivolvle.common.error.BusinessException;
 import com.vivolvle.common.error.EmBusinessError;
 import com.vivolvle.common.response.ServerResponce;
 import com.vivolvle.common.service.TestService;
+import com.vivolvle.common.utils.ThreadLocalUtil;
 import com.vivolvle.common.validator.ValidationResult;
 import com.vivolvle.common.validator.ValidatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,15 @@ public class TestController {
     public ServerResponce getMsg(@PathVariable("value") String value) {
         testService.writeIntoRequest(value);
         return ServerResponce.createBySuccessMessage("测试成功");
+    }
+
+    @GetMapping("/thread/{value}")
+    public ServerResponce testThreadLocal(@PathVariable("value") String value){
+        testService.testThread(value);
+        Object result = ThreadLocalUtil.getValue();
+        System.out.println("name of currentThread is "
+                +Thread.currentThread().getName()+" the value is: "+ result);
+        return ServerResponce.createBySuccess(result);
     }
 
     @PostMapping("/validate")

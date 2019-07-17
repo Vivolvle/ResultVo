@@ -14,13 +14,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 public class TestInterceptor extends WebMvcConfigurationSupport {
 
     @Bean
-    public AfterInspector afterInspector(){
+    public AfterInspector afterInspector() {
         return new AfterInspector();
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(afterInspector());
+        registry.addInterceptor(afterInspector()).addPathPatterns("/adapter/**");
     }
 
 }
