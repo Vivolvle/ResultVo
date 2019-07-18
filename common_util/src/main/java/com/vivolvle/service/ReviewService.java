@@ -1,5 +1,8 @@
 package com.vivolvle.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @author liangzheng.wei
  * @Description:
@@ -7,9 +10,15 @@ package com.vivolvle.service;
  * @Copyright: 2019 dingxiang-inc.com Inc. All rights reserved.
  */
 public interface ReviewService {
-    String getName();
 
-    default String getValue(){
-        return "This is defaultValue";
+    default void setVersionNO(String versionNo){
+
+    }
+
+    default String newVersion(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String newVersion = simpleDateFormat.format(new Date()).replaceAll("[[\\s-:punct:]]", "");
+        setVersionNO(newVersion);
+        return newVersion;
     }
 }

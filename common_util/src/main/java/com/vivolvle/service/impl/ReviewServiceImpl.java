@@ -10,20 +10,26 @@ import com.vivolvle.service.ReviewService;
  */
 public class ReviewServiceImpl implements ReviewService {
 
-    @Override
-    public String getName() {
-        return "child name";
+    //private String version = "201409010900_99";
+
+    private String version;
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     @Override
-    public String getValue(){
-        return "overWriteValue";
+    public void setVersionNO(String versionNo){
+        setVersion(versionNo);
     }
 
     public static void main(String[] args) {
         ReviewService reviewService = new ReviewServiceImpl();
-        System.out.println(reviewService.getName());
-        System.out.println(reviewService.getValue());
+        reviewService.newVersion();
+        System.out.println(((ReviewServiceImpl) reviewService).getVersion());
     }
-
 }
