@@ -17,9 +17,9 @@ public class Proxy {
 
     private final int port;
 
-    private final float weight;
+    private final float weight; //体重增量
 
-    private float curWeight = 0;
+    private float curWeight = 0;    //现体重
 
     public Proxy(String ip, int port) {
         this(ip, port, 1);
