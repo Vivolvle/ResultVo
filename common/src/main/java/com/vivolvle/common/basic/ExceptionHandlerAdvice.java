@@ -2,16 +2,15 @@ package com.vivolvle.common.basic;
 
 import com.vivolvle.common.error.BusinessException;
 import com.vivolvle.common.response.ServerResponce;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * @Author: weilz
  * @Date: 2019/5/22 9:45
  */
-@ControllerAdvice(annotations = RestController.class)
+@RestControllerAdvice
 @ResponseBody
 public class ExceptionHandlerAdvice {
 

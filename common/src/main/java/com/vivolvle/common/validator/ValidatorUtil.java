@@ -1,11 +1,12 @@
 package com.vivolvle.common.validator;
 
-import org.springframework.beans.factory.InitializingBean;
+import org.hibernate.validator.HibernateValidator;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 /**
@@ -14,12 +15,14 @@ import java.util.Set;
  * @Version 1.0
  */
 @Component
-public class ValidatorImpl implements InitializingBean {
-
-    private Validator validator;
+public class ValidatorUtil{
 
     // 实现校验方法并返回校验结果
-    public ValidationResult validate(Object bean) {
+    public static ValidationResult validate(Object bean) {
+        ValidatorFactory factory = Validation.byProvider(HibernateValidator.class)
+                .configure()
+                .buildValidatorFactory();
+        Validator validator = factory.getValidator();
         ValidationResult result = new ValidationResult();
         Set<ConstraintViolation<Object>> constraintViolationSet = validator.validate(bean);
         if (constraintViolationSet.size() > 0) {
@@ -32,11 +35,5 @@ public class ValidatorImpl implements InitializingBean {
             });
         }
         return result;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        // 将Hibernate validator通过工厂的初始化方式使其实例化
-        this.validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 }

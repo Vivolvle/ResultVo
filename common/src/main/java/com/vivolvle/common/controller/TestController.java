@@ -7,7 +7,7 @@ import com.vivolvle.common.response.ServerResponce;
 import com.vivolvle.common.service.TestService;
 import com.vivolvle.common.utils.ThreadLocalUtil;
 import com.vivolvle.common.validator.ValidationResult;
-import com.vivolvle.common.validator.ValidatorImpl;
+import com.vivolvle.common.validator.ValidatorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +19,6 @@ import java.util.List;
  */
 @RestController
 public class TestController {
-
-    @Autowired
-    private ValidatorImpl validator;
     @Autowired
     private TestService testService;
 
@@ -51,7 +48,7 @@ public class TestController {
 
     @PostMapping("/validate")
     public ServerResponce validate(@RequestBody TestCommand testCommand) {
-        ValidationResult result = validator.validate(testCommand);
+        ValidationResult result = ValidatorUtil.validate(testCommand);
         if (result.isHasErrors()) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, result.getErrMsg());
         }
@@ -63,7 +60,7 @@ public class TestController {
     @PostMapping("/validateList")
     public ServerResponce validateList(@RequestBody List<TestCommand> testCommandList) {
         for (TestCommand testCommand : testCommandList) {
-            ValidationResult result = validator.validate(testCommand);
+            ValidationResult result = ValidatorUtil.validate(testCommand);
             if (result.isHasErrors()) {
                 throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, result.getErrMsg());
             }
