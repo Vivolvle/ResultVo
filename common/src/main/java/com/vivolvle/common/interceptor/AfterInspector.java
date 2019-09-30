@@ -36,7 +36,7 @@ public class AfterInspector extends HandlerInterceptorAdapter {
 //            logService = factory
 //                    .getBean(LogService.class);
 //        }
-        logService.printRequest();
+//        logService.printRequest();
     }
 
 }

@@ -14,7 +14,6 @@ import java.util.Set;
  * @Date: 2019/1/8 21:31
  * @Version 1.0
  */
-@Component
 public class ValidatorUtil{
 
     // 实现校验方法并返回校验结果
